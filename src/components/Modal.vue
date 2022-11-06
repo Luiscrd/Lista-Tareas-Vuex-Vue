@@ -5,7 +5,7 @@
             <slot name="body" />
             <slot name="footer" />
 
-            <slot name="exposed" :newTitle="newTitle"></slot>
+            <!-- <slot name="exposed" :newTitle="newTitle"></slot> -->
 
             <!-- <slot>Esto apaecerá si no tenemos contenido</slot> -->
         </div>

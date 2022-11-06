@@ -18,18 +18,23 @@
     </ul>
   </div>
   <modal v-if="isOpen" title="Hola mundo" @on:close="closeModal">
+
     <template v-slot:header>
-      <h2>¿Está seguro?</h2>
+      <h2 class="mb-5">Nueva tarea</h2>
     </template>
+
     <template v-slot:body>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos porro, sit cupiditate hic maxime magnam! Soluta voluptates delectus.</p>
+      <form @submit.prevent="createTodo(text), isOpen = false, text = ''">
+        <input class="form-control mb-5" type="text" placeholder="Crear todo" v-model="text">
+        <button type="submit" class="btn btn-danger">Guardar</button>
+      </form>
     </template>
     <template v-slot:footer>
-      <button @click="closeModal" type="button" class="btn btn-danger">Salir</button>
+
     </template>
-    <template v-slot:exposed="{ newTitle }">
+    <!-- <template v-slot:exposed="{ newTitle }">
       <h2>{{ newTitle }}</h2>
-    </template>
+    </template> -->
   </modal>
 </template>
 
@@ -46,7 +51,17 @@ export default {
 
   setup() {
 
-    const { pendingTodos, currenTab, getTodosByTab, toggleTodo, isOpen, openModal, closeModal } = useTodos()
+    const {
+      pendingTodos,
+      currenTab,
+      getTodosByTab,
+      toggleTodo,
+      isOpen,
+      openModal,
+      closeModal,
+      createTodo,
+      text
+    } = useTodos()
 
     return {
       pendingTodos,
@@ -55,7 +70,9 @@ export default {
       toggleTodo,
       isOpen,
       openModal,
-      closeModal
+      closeModal,
+      createTodo,
+      text
     }
 
   }
