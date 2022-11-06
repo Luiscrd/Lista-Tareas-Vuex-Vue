@@ -19,25 +19,21 @@
 </template>
 
 <script>
-import useTodos from '@/composables/useTodos'
-
+import { computed, ref } from 'vue'
+import { useStore } from 'vuex'
 export default {
-  
   name: 'HomeView',
-
   setup() {
-
-    const { pendingTodos, currenTab, getTodosByTab, toggleTodo } = useTodos()
+    const store = useStore()
+    const currenTab = ref('all')
 
     return {
-      pendingTodos,
       currenTab,
-      getTodosByTab,
-      toggleTodo
+      pendingTodos: computed(() => store.getters['pendingTodos']),
+      getTodosByTab: computed(() => store.getters['getTodosByTab'](currenTab.value)),
+      toggleTodo: (id) => { store.commit('toggleTodo', id) }
     }
-
   }
-
 }
 </script>
 
