@@ -10,7 +10,7 @@
       @click="currenTab = 'pending'">Pendientes</button>
     <button type="button" class="btn btn-warning m-2" :class="{ 'active': currenTab === 'completed' }"
       @click="currenTab = 'completed'">Completados</button>
-    <button type="button" class="btn btn-danger m-2" @click="openModal">Borrar todos</button>
+    <button type="button" class="btn btn-outline-danger m-2" @click="openModal">Crear Todo</button>
     <hr>
     <ul>
       <li v-for="todo in getTodosByTab" :class="{ 'completed': todo.completed }" :key="todo.id"
