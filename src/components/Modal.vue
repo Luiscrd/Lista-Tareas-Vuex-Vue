@@ -1,14 +1,31 @@
 <template>
-  <div class="modal-background fade-in">
-    <div class="modal-container">
-        <h1>Hola mundo</h1>
+    <div class="modal-background fade-in" @click.self="$emit('on:close')">
+        <div class="modal-container">
+            <slot name="header" />
+            <slot name="body" />
+            <slot name="footer" />
+
+            <slot name="exposed" :newTitle="newTitle"></slot>
+
+            <!-- <slot>Esto apaecerá si no tenemos contenido</slot> -->
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
 export default {
-    
+    props: {
+        title: {
+            type: String,
+            requided: true
+        }
+    },
+    emits: ['on:close'],
+    setup(props, context) {
+        return{
+            newTitle: props.title?.toUpperCase()
+        }
+    }
 
 }
 </script>
@@ -29,8 +46,8 @@ export default {
 }
 
 .modal-container {
-    width: 270px;
-    height: 270px;
+    width: 290px;
+    height: 290px;
     padding: 30px;
     text-align: center;
     background-color: white;
@@ -49,35 +66,60 @@ export default {
 
 
 .fade-in {
-  animation: fadeIn ease-out 0.2s;
-  -webkit-animation: fadeIn ease-out 0.2s;
-  -moz-animation: fadeIn ease-out 0.2s;
-  -o-animation: fadeIn ease-out 0.2s;
-  -ms-animation: fadeIn ease-out 0.2s;
+    animation: fadeIn ease-out 0.2s;
+    -webkit-animation: fadeIn ease-out 0.2s;
+    -moz-animation: fadeIn ease-out 0.2s;
+    -o-animation: fadeIn ease-out 0.2s;
+    -ms-animation: fadeIn ease-out 0.2s;
 }
 
 @keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 @-moz-keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 @-webkit-keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 @-o-keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 @-ms-keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 </style>

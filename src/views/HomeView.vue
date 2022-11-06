@@ -10,14 +10,27 @@
       @click="currenTab = 'pending'">Pendientes</button>
     <button type="button" class="btn btn-warning m-2" :class="{ 'active': currenTab === 'completed' }"
       @click="currenTab = 'completed'">Completados</button>
-      <button type="button" class="btn btn-danger m-2">Borrar todos</button>
+    <button type="button" class="btn btn-danger m-2" @click="openModal">Borrar todos</button>
     <hr>
     <ul>
       <li v-for="todo in getTodosByTab" :class="{ 'completed': todo.completed }" :key="todo.id"
         @dblclick="toggleTodo(todo.id)">{{ todo.text }}</li>
     </ul>
   </div>
-  <Modal />
+  <modal v-if="isOpen" title="Hola mundo" @on:close="closeModal">
+    <template v-slot:header>
+      <h2>¿Está seguro?</h2>
+    </template>
+    <template v-slot:body>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos porro, sit cupiditate hic maxime magnam! Soluta voluptates delectus.</p>
+    </template>
+    <template v-slot:footer>
+      <button @click="closeModal" type="button" class="btn btn-danger">Salir</button>
+    </template>
+    <template v-slot:exposed="{ newTitle }">
+      <h2>{{ newTitle }}</h2>
+    </template>
+  </modal>
 </template>
 
 <script>
@@ -27,19 +40,22 @@ import Modal from '@/components/Modal.vue'
 export default {
 
   name: 'HomeView',
-  components:{
+  components: {
     Modal
   },
 
   setup() {
 
-    const { pendingTodos, currenTab, getTodosByTab, toggleTodo } = useTodos()
+    const { pendingTodos, currenTab, getTodosByTab, toggleTodo, isOpen, openModal, closeModal } = useTodos()
 
     return {
       pendingTodos,
       currenTab,
       getTodosByTab,
-      toggleTodo
+      toggleTodo,
+      isOpen,
+      openModal,
+      closeModal
     }
 
   }
