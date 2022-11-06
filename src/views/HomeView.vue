@@ -10,20 +10,26 @@
       @click="currenTab = 'pending'">Pendientes</button>
     <button type="button" class="btn btn-warning m-2" :class="{ 'active': currenTab === 'completed' }"
       @click="currenTab = 'completed'">Completados</button>
+      <button type="button" class="btn btn-danger m-2">Borrar todos</button>
     <hr>
     <ul>
       <li v-for="todo in getTodosByTab" :class="{ 'completed': todo.completed }" :key="todo.id"
         @dblclick="toggleTodo(todo.id)">{{ todo.text }}</li>
     </ul>
   </div>
+  <Modal />
 </template>
 
 <script>
 import useTodos from '@/composables/useTodos'
+import Modal from '@/components/Modal.vue'
 
 export default {
-  
+
   name: 'HomeView',
+  components:{
+    Modal
+  },
 
   setup() {
 
